@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
+import authorizedRecruiters from "../utils/authorized.js"
 
 export const register = async (req, res) => {
     try {
@@ -14,6 +15,16 @@ export const register = async (req, res) => {
                 success: false
             });
         };
+
+        if(role == "recruiter"){
+            if (!authorizedRecruiters.includes(email)) {
+              return res.status(400).json({
+                message: 'You are not authorized to use this feature',
+                success: false,
+            })
+            }
+        }
+        
         const emailRegex = /^[0-9]{4}[a-zA-Z]+[0-9]{3}@nitjsr\.ac\.in$/;
         if(role == "student" && !emailRegex.test(email)){
             return res.status(400).json({
