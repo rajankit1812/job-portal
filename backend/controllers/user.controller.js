@@ -14,6 +14,20 @@ export const register = async (req, res) => {
                 success: false
             });
         };
+        const emailRegex = /^[0-9]{4}[a-zA-Z]+[0-9]{3}@nitjsr\.ac\.in$/;
+        if(role == "student" && !emailRegex.test(email)){
+            return res.status(400).json({
+                message: 'Please enter a valid college mail id',
+                success: false,
+            })
+        }
+
+        if (password.length < 8) {
+            return res.status(400).json({
+                message: 'Password should be at least 8 characters long',
+                success: false,
+            })
+        }
         const file = req.file;
         const fileUri = getDataUri(file);
         const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
