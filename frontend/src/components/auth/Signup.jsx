@@ -34,6 +34,15 @@ const Signup = () => {
     }
     const submitHandler = async (e) => {
         e.preventDefault();
+        const emailRegex = /^[0-9]{4}[a-zA-Z]+[0-9]{3}@nitjsr\.ac\.in$/;
+
+    if(input.role == "student" && !emailRegex.test(input.email)){
+        alert("Please enter a valid college email id")
+    }
+    else if (input.password.length < 8) {
+      alert("Password must be at least 8 characters long.");
+    }
+        else{
         const formData = new FormData();    //formdata object
         formData.append("fullname", input.fullname);
         formData.append("email", input.email);
@@ -59,6 +68,7 @@ const Signup = () => {
             toast.error(error.response.data.message);
         } finally{
             dispatch(setLoading(false));
+        }
         }
     }
 
