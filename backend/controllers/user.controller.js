@@ -16,13 +16,12 @@ export const register = async (req, res) => {
             });
         };
 
-        if(role == "recruiter"){
-            if (!authorizedRecruiters.includes(email)) {
-              return res.status(400).json({
-                message: 'You are not authorized to use this feature',
+        const tapemailRegex = /^[0-9]{4}[a-z]+[0-9]{3}@tap\.nitjsr\.ac\.in$/
+        if(role == "recruiter" && !tapemailRegex.test(email)){
+            return res.status(400).json({
+                message: 'You are not authorized to signup in this role',
                 success: false,
             })
-            }
         }
         
         const emailRegex = /^[0-9]{4}[a-zA-Z]+[0-9]{3}@nitjsr\.ac\.in$/;
