@@ -102,7 +102,7 @@ const Login = () => {
                                     onChange={changeEventHandler}
                                     className="cursor-pointer"
                                 />
-                                <Label htmlFor="r2">Recruiter</Label>
+                                <Label htmlFor="r2">TAP coordinator</Label>
                             </div>
                         </RadioGroup>
                     </div>
